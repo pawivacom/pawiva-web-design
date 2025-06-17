@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle in Dropdown</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Genel Ayarlar */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.5s, color 0.5s;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Karanlık Mod */
+body.dark-mode {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+/* Profil Menüsü */
+.profile-menu {
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+}
+
+.profile-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Dropdown */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown ul li {
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown ul li:last-child {
+    border-bottom: none;
+}
+
+.dropdown ul li:hover {
+    background-color: #f1f1f1;
+}
+
+/* Dark Mode Toggle Butonu */
+.dark-mode-toggle {
+    position: relative;
+    width: 50px;
+    height: 25px;
+    background: #f39c12;
+    border-radius: 25px;
+    margin: 5px auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.5s ease-in-out;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: all 0.5s ease-in-out;
+}
+
+.sun {
+    background: #f1c40f;
+    box-shadow: 0 0 10px #f1c40f;
+    transform: scale(1); /* Güneş görünür */
+}
+
+.moon {
+    background: #ecf0f1;
+    box-shadow: 0 0 10px #ecf0f1;
+    transform: scale(0); /* Ay gizli */
+}
+
+/* Dark Mode Aktifken */
+body.dark-mode .dark-mode-toggle {
+    background: #34495e;
+}
+
+body.dark-mode .sun {
+    transform: scale(0); /* Güneş gizlenir */
+}
+
+body.dark-mode .moon {
+    transform: scale(1); /* Ay görünür */
+}
+    </style>
+</head>
+<body>
+    <!-- Profil İkonu -->
+    <div class="profile-menu">
+        <div class="profile-icon" onclick="toggleMenu()">👤</div>
+        <div class="dropdown" id="dropdownMenu">
+            <ul>
+                <li>Ayarlar</li>
+                <li>Profili Düzenle</li>
+                <li>
+                    <!-- Karanlık Mod Butonu -->
+                    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+                        <div class="icon sun"></div>
+                        <div class="icon moon"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <h1>Hoş Geldiniz</h1>
+    <p>Profil menüsünden karanlık modu değiştirebilirsiniz.</p>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>

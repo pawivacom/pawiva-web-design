@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acil İlanlar - Pawiva</title>
+    <link rel="icon" type="image/x-icon" href="pati.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2E2D88;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2E2D88;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2E2D88;
+        }
+
+        .emergency-link {
+            background-color: #ff4757;
+            color: white !important;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: background-color 0.3s ease !important;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 56, 56, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+            }
+        }
+
+        .emergency-header {
+            background: linear-gradient(135deg, #2E2D88 0%, #ff8e8e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .emergency-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .emergency-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .emergency-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .emergency-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .emergency-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .urgent-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff4757;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h2 {
+            color: #2E2D88;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .card-content p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .card-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem 0;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2E2D88;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .adopt-btn {
+            width: 100%;
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .adopt-btn:hover {
+            background: #ff3445;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #e1e1e1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #2E2D88;
+            color: white;
+            border-color: #2E2D88;
+        }
+
+        footer {
+            background-color: #2d3436;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-5px);
+            }
+            60% {
+                transform: translateY(-3px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .emergency-header {
+                padding: 2rem 1rem;
+            }
+
+            .emergency-header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .emergency-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-bar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="indexpawiva.html" class="logo">Pawiva</a>
+            <div class="nav-links">
+                <a href="indexpawiva.html">Ana Menü</a>
+                <a href="kategoriler.html">Kategori</a>
+                <a href="Forum.html">Forum</a>
+                <a href="iletisim.html">İletişim</a>
+                <a href="acililan.html" class="emergency-link">ACİL İLANLAR</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="emergency-header">
+        <div class="emergency-header-content">
+            <h1>ACİL YUVA ARAYANLAR</h1>
+            <p>Burada ki küçük patili dostlarımız acil yuva arramaktadır. Onlara öncelik verin, kucak açın.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="filter-bar">
+            <button class="filter-btn active">Hepsi</button>
+            <button class="filter-btn">Kediler</button>
+            <button class="filter-btn">Köpekler</button>
+            <button class="filter-btn">Süresi Azalanlar</button>
+            <button class="filter-btn">Yeni eklenenler</button>
+        </div>
+
+        <div class="emergency-grid">
+            <!-- Emergency Case 1 -->
+            <div class="emergency-card">
+                <div class="card-image">
+                    <img src="kedi.png" alt="viuv">
+                    <span class="urgent-badge">Süresi Azalanlar</span>
+                </div>
+                <div class="card-content">
+                    <h2>Viuv</h2>
+                    <p>3 yaşındaki kedinin, sahibinin hastaneye kaldırılması nedeniyle acilen yeniden barındırılması gerekiyor. Tatlı ve nazik, çocuklarla arası iyi.</p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-value">3 yas</div>
+                            <div class="stat-label">Yaş</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Dişi</div>
+                            <div class="stat-label">Cinsiyet</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2 gün</div>
+                            <div class="stat-label">Kalan Süre</div>
+                        </div>
+                    </div>
+                    <button class="adopt-btn">Sahiplen</button>
+                </div>
+            </div>
+
+            <!-- Emergency Case 2 -->
+            <div class="emergency-card">
+                <div class="card-image">
+                    <img src="kopke.png" alt="Max">
+                    <span class="urgent-badge">Süresi Azalanlar</span>
+                </div>
+                <div class="card-content">
+                    <h2>Viuv</h2>
+                    <p>Kapanan barınaktan 5 yaşındaki köpek. Dost canlısı ve iyi eğitimli, bir hafta içinde bir yuvaya ihtiyacı var.</p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-value">5 yas</div>
+                            <div class="stat-label">yaş</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Erkek</div>
+                            <div class="stat-label">Cinsiyet</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">5 gün</div>
+                            <div class="stat-label">Kalan Süre</div>
+                        </div>
+                    </div>
+                    <button class="adopt-btn">Sahiplen</button>
+                </div>
+            </div>
+
+
+    <footer>
+        <p>© 2024 Pawiva - Küçük Dostlarımıza Sonsuz Destek</p>
+    </footer>
+</body>
+</html>

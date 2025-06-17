@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum - Pawiva</title>
+    <link rel="icon" type="image/x-icon" href="pati.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2E2D88;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2E2D88;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2E2D88;
+        }
+
+        .emergency-link {
+            background-color: #ff4757;
+            color: white !important;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: background-color 0.3s ease !important;
+        }
+
+        .emergency-link:hover {
+            background-color: #ff6b6b;
+        }
+
+        .forum-header {
+            background: linear-gradient(135deg, #2E2D88 0%, #ff8e8e 100%);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .forum-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .forum-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .forum-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .forum-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-forum {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-forum input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #e1e1e1;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-forum input:focus {
+            border-color: #2E2D88;
+        }
+
+        .new-topic-btn {
+            background: #2E2D88;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .new-topic-btn:hover {
+            background: #3f3ea3;
+        }
+
+        .forum-categories {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .category-header {
+            background: #2E2D88;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .topic {
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            align-items: center;
+        }
+
+        .topic:last-child {
+            border-bottom: none;
+        }
+
+        .topic-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topic-info h3 {
+            color: #2E2D88;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .topic-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .topic-stats {
+            text-align: center;
+            color: #666;
+        }
+
+        .topic-stats div {
+            margin-bottom: 0.3rem;
+        }
+
+        .latest-post {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            background: #e9ecef;
+            color: #2E2D88;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            background-color: #2d3436;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .forum-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-forum {
+                max-width: 100%;
+            }
+
+            .topic {
+                grid-template-columns: auto 1fr;
+                gap: 1rem;
+            }
+
+            .topic-stats, .latest-post {
+                display: none;
+            }
+
+            .forum-header {
+                padding: 2rem 1rem;
+            }
+
+            .forum-header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+        .auth-button {
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    
+        .user {
+            width:  17px;
+            height: 17px;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="indexpawiva.html" class="logo">Pawiva</a>
+            <div class="nav-links">
+                <a href="indexpawiva.html">Ana Menü</a>
+                <a href="kategoriler.html">Kategori</a>
+                <a href="forum.html">Forum</a>
+                <a href="iletisim.html">İletişim</a>
+                <a href="login.html" class="auth-button">
+                    <img src="user.png" alt="User Icon" class="user"> Giriş Yap </a>
+                <a href="acililan.html" class="emergency-link">ACİL İLANLAR</a>
+            </div>
+        </div>
+    </nav>
+
+    
+
+    <header class="forum-header">
+        <div class="forum-header-content">
+            <h1>Pawiva Topluluk Forum</h1>
+            <p>Evcil hayvan sever dostlarınızla sohbete katılın ve evcil hayvanlarla ilgili tüm sorularınız için destek bulun.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="forum-actions">
+            <div class="search-forum">
+                <input type="text" placeholder="Search forums...">
+            </div>
+            <button class="new-topic-btn">Forum Oluşturun</button>
+        </div>
+
+        <div class="forum-categories">
+            <div class="category">
+                <div class="category-header">Forumlar</div>
+                <div class="topic">
+                    <div class="topic-icon">🐾</div>
+                    <div class="topic-info">
+                        <h3>bla bla bla</h3>
+                        <p>bambiri bim bim bam bam</p>
+                        <span class="tag">Köpek</span>
+                        <span class="tag">Sağlık</span>
+                    </div>
+                    <div class="topic-stats">
+                        <div>24 yorum</div>
+                        <div>1.2k görülme</div>
+                    </div>
+                    <div class="latest-post">
+                        <div>En son: John Wick J.</div>
+                        <div>2 saat önce</div>
+                    </div>
+                </div>
+                <div class="topic">
+                    <div class="topic-icon">🦮</div>
+                    <div class="topic-info">
+                        <h3>Hav hav</h3>
+                        <p>hav hav hav</p>
+                        <span class="tag">sahibimi</span>
+                        <span class="tag">nasisikayetetcem</span>
+                    </div>
+                    <div class="topic-stats">
+                        <div>56 yorum</div>
+                        <div>2.3k görülme</div>
+                    </div>
+                    <div class="latest-post">
+                        <div>En son: Dolly</div>
+                        <div>5 saat önce</div>
+                    </div>
+                </div>
+            </div>
+
+          
+
+    <footer>
+        <p>© 2024 Pawiva - Küçük Dostlarımıza Sonsuz Destek</p>
+    </footer>
+</body>
+</html>
